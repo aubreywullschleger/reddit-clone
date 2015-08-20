@@ -6,6 +6,35 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+<nav></nav>
+<main ng-controller="postController">
+    <section>
+        <h3>create new post</h3>
+
+        <form ng-submit="addPost()">
+            <input ng-model="post.title" type="text" id="title" placeholder="title" value=""/>
+            <input ng-model="post.author" type="text" id="author" placeholder="author" value=""/>
+            <input ng-model="post.image" type="text" id="image" placeholder="image url" value=""/>
+            <input ng-model="post.description" type="text" id="description" placeholder="description" value=""/>
+            <input ng-model="post.date" type="hidden" id="date"/>
+            <input type="submit" value="submit"/>
+        </form>
+        <article ng-repeat="post in posts">
+            Title: {{post.title}}
+            Author: {{post.author}}
+            Image: {{post.image}}
+            Description: {{post.description}}
+            Date: {{post.date | date: 'EEE MMM/dd/yy h:mm a'}}
+            Votes: {{post.votes | orderBy: -(votes)}}
+            <aside>
+                <form ng-submit="castVote">
+                    <input  ng-click="upVote = upVote + 1" ng-init="upVote = castVote.upVotes" type="submit" value="up" id="up"/> up: {{upVote}}<br/>
+                    <input ng-click="downVote = downVote - 1" ng-init="downVote = castVote.downVotes" type="submit" value="down" id="down" /> down: {{downVote}}<br/> <div>votes: {{upVote + downVote}}</div>
+                </form>
+            </aside>
+        </article>
+    </section>
+</main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
